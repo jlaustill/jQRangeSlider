@@ -400,11 +400,24 @@
 					});
 			}, 1);
 		},
+		
+		_changing: function(isAutomatic){
+			if (isAutomatic === true){
+				this._deactivateLabels();
+			}
 
-		_changing: function(){
-			if(this._updateValues()){
+			if (this._updateValues()){
 				this._trigger("valuesChanging");
-				this._valuesChanged = true;
+
+				if (isAutomatic !== true){
+					this._trigger("userValuesChanging");					
+				}
+
+				this._valuesChanged = false;
+			}
+
+			if (isAutomatic === true){
+				this._reactivateLabels();
 			}
 		},
 
